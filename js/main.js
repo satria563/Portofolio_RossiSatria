@@ -208,6 +208,24 @@ function initActiveNavHighlight() {
   const mobileLinks = document.querySelectorAll('.navbar__mobile-link');
 
   function updateActiveLink() {
+    // If scrolled to the bottom of page, force highlight the Contact section
+    const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 50);
+    if (isAtBottom) {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#contact') {
+          link.classList.add('active');
+        }
+      });
+      mobileLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#contact') {
+          link.classList.add('active');
+        }
+      });
+      return;
+    }
+
     const scrollY = window.scrollY + 100;
 
     sections.forEach(section => {
@@ -289,6 +307,9 @@ function initContactForm() {
 
 /* ---------- INTERACTIVE CARD GLOW (SPOTLIGHT) ---------- */
 function initCardGlow() {
+  // Disable mousemove event on mobile/touch screens to optimize battery/CPU
+  if (window.matchMedia("(pointer: coarse)").matches) return;
+
   const cards = document.querySelectorAll('.project-card, .skill-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
@@ -556,6 +577,31 @@ function initProjectModal() {
     e.stopPropagation();
     goToSlide(currentSlideIndex + 1);
   });
+
+  // Touch swipe support for gallery on mobile/touch screens
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  galleryContainer.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  galleryContainer.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    if (currentProjectImages.length <= 1) return;
+    const swipeThreshold = 50; // min pixels to swipe
+    if (touchStartX - touchEndX > swipeThreshold) {
+      // Swipe left -> Next slide
+      goToSlide(currentSlideIndex + 1);
+    } else if (touchEndX - touchStartX > swipeThreshold) {
+      // Swipe right -> Prev slide
+      goToSlide(currentSlideIndex - 1);
+    }
+  }
 
   // Keyboard navigation
   window.addEventListener('keydown', (e) => {
