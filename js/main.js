@@ -4,7 +4,9 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
-  lucide.createIcons();
+  if (window.lucide) {
+    lucide.createIcons();
+  }
   initNavbar();
   initTypingEffect();
   initScrollReveal();
@@ -13,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initActiveNavHighlight();
   initContactForm();
   initCardGlow();
+  initProjectModal();
 });
 
 /* ---------- NAVBAR ---------- */
@@ -55,10 +58,17 @@ function initNavbar() {
   // Smooth scroll for all anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
+      const href = anchor.getAttribute('href');
+      if (href === '#') return; // Skip if it's just a placeholder hash
+      
       e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+      try {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      } catch (err) {
+        console.warn('Invalid selector:', href);
       }
     });
   });
@@ -270,7 +280,9 @@ function initContactForm() {
       submitBtn.innerHTML = originalText;
       submitBtn.style.background = '';
       submitBtn.disabled = false;
-      lucide.createIcons();
+      if (window.lucide) {
+        lucide.createIcons();
+      }
     }, 3000);
   });
 }
@@ -286,5 +298,275 @@ function initCardGlow() {
       card.style.setProperty('--mouse-x', `${x}px`);
       card.style.setProperty('--mouse-y', `${y}px`);
     });
+  });
+}
+
+/* ---------- PROJECT DETAIL MODAL ---------- */
+const projectDetails = {
+  karyaspace: {
+    title: "KaryaSpace: Sistem Informasi HRIS & Payroll",
+    category: "Web Development",
+    badgeClass: "project-card__category-badge--webdev",
+    images: [
+      "assets/images/project-karyaspace.png"
+    ],
+    problem: "Perusahaan memerlukan sistem otomatisasi presensi terintegrasi untuk mencegah kecurangan (titip absen), mengelola dispensasi dinas luar, serta menghitung upah lembur legal (PP No. 35/2021) dan perhitungan pajak progresif PPh 21 secara akurat.",
+    action: "Membangun web HRIS menggunakan Next.js 16 (App Router) & TypeScript. Mengimplementasikan geofencing radius GPS (150m), bypass presensi dinas luar, swafoto real-time, database PostgreSQL via Drizzle ORM, autentikasi NextAuth.js v5 (JWT Strategy), serta menyusun algoritma payroll & PPh 21.",
+    result: "Sistem berhasil memproses presensi karyawan secara aman dan real-time menggunakan Bun, mengotomatisasi pengunggahan bukti transfer gaji, menyederhanakan workflow administrasi HRD, dan memungkinkan pengunduhan slip gaji secara mandiri.",
+    challenge: "Tantangan terbesar adalah membangun perhitungan PPh 21 terintegrasi dengan tarif efektif rata-rata (TER) terbaru secara otomatis dan menjamin validitas lokasi absen GPS (menghindari fake GPS di HP karyawan).",
+    solution: "Saya memecahkan ini dengan memvalidasi koordinat latitude-longitude secara langsung melalui server, menghitung jarak menggunakan rumus Haversine, serta membuat modul hitung pajak modular yang diuji secara intensif dengan Bun test runner.",
+    tech: ["Next.js 16", "TypeScript", "PostgreSQL", "Drizzle ORM", "NextAuth.js v5", "Geofencing & GPS", "Bun (Test Runner)"],
+    demoUrl: "https://karyaspace.vercel.app",
+    githubUrl: "https://github.com/satria563/karyaspace-hris"
+  },
+  iot: {
+    title: "Project Pembuatan IoT: Sensor Cahaya",
+    category: "Teknologi & IoT",
+    badgeClass: "project-card__category-badge--networking",
+    images: [
+      "assets/images/project-iot.png"
+    ],
+    problem: "Dibutuhkan sistem otomatisasi berbasis sensor untuk membaca data intensitas cahaya lingkungan secara real-time dan menerjemahkannya ke dalam aksi mikrokontroler.",
+    action: "Menulis kode pemrograman Arduino, merancang logika pemrosesan data sensor LDR (Light Dependent Resistor), mengonfigurasi batas ambang intensitas cahaya, dan mengunggahnya ke perangkat keras.",
+    result: "Sistem berhasil membaca data lingkungan secara stabil dan memicu aksi dinamis (seperti menyalakan/mematikan lampu) dengan tingkat respons yang instan.",
+    challenge: "Tantangan utama adalah fluktuasi nilai baca sensor LDR (noise) akibat perubahan bayangan sesaat, yang memicu kedipan lampu yang tidak stabil (chattering) saat intensitas berada di batas ambang.",
+    solution: "Saya mengatasinya dengan menerapkan algoritma hysteresis (rentang batas atas dan bawah yang berbeda) serta melakukan software-based debouncing dengan menghitung rata-rata pembacaan sensor selama 500ms sebelum mengambil keputusan aksi.",
+    tech: ["Arduino IDE", "LDR Sensor", "IoT", "Logika Mikrokontroler", "C/C++", "Espressif ESP8266"],
+    githubUrl: "https://github.com/satria563/iot-ldr-sensor"
+  },
+  k3: {
+    title: "PIC Operasional Pelatihan Sertifikasi K3",
+    category: "Manajerial",
+    badgeClass: "project-card__category-badge--managerial",
+    images: [
+      "assets/images/project-managerial.png"
+    ],
+    problem: "Koordinasi alur administrasi, komunikasi instruktur, dan logistik peserta dalam pelatihan sertifikasi K3 yang rentan mengalami hambatan informasi akibat banyaknya pihak yang terlibat secara eksternal.",
+    action: "Mengambil kendali sebagai koordinator operasional (PIC). Menjadi jembatan komunikasi utama, mengelola administrasi berkas kelulusan, dan menyusun laporan evaluasi pasca-kegiatan.",
+    result: "Penyelenggaraan pelatihan berjalan lancar tanpa kendala administratif, laporan evaluasi selesai tepat waktu, dan dokumentasi kelulusan peserta terdistribusi secara akurat.",
+    challenge: "Menghadapi perubahan jadwal mendadak dari instruktur sertifikasi BNSP serta berkas pendaftaran peserta yang seringkali tidak lengkap menjelang hari-H.",
+    solution: "Saya menyusun Standard Operating Procedure (SOP) digital untuk pengumpulan berkas melalui form online terintegrasi, yang memberikan notifikasi otomatis jika ada berkas yang kurang, serta membuat tabel manajemen risiko jadwal instruktur cadangan.",
+    tech: ["Manajemen Operasional", "Keselamatan Kerja (K3)", "Koordinasi Instansi", "Penyusunan Laporan", "SOP Digital", "Google Workspace"],
+    demoUrl: "https://www.youtube.com"
+  },
+  binamuda: {
+    title: "Mengikuti Organisasi Binamuda 02",
+    category: "Manajerial",
+    badgeClass: "project-card__category-badge--managerial",
+    images: [
+      "assets/images/binamuda.jpg"
+    ],
+    problem: "Mengorganisasikan kepanitiaan besar untuk melaksanakan rangkaian kegiatan kemasyarakatan yang melibatkan ratusan warga dengan keterbatasan alokasi waktu dan anggaran.",
+    action: "Memimpin perencanaan acara, merancang pembagian anggaran secara transparan, serta mengarahkan koordinasi tim panitia di lapangan agar pengerjaan efisien.",
+    result: "Acara terlaksana dengan sukses dan meriah, dihadiri oleh warga secara antusias dengan sisa anggaran yang dikelola dengan baik untuk kas organisasi.",
+    challenge: "Menyatukan visi anggota kepanitiaan yang memiliki latar belakang dan kesibukan berbeda, serta mencari sponsor lokal tambahan dalam waktu singkat.",
+    solution: "Menggunakan tools manajemen tugas sederhana (seperti Trello/WhatsApp Group) untuk memecah task menjadi sub-task harian, mengadakan rapat evaluasi mingguan singkat, serta membuat proposal sponsor kreatif yang menawarkan eksposur di sosial media lokal.",
+    tech: ["Kepemimpinan", "Manajemen Anggaran", "Manajemen Waktu", "Negosiasi", "Trello", "WhatsApp Business"]
+  }
+};
+
+function initProjectModal() {
+  const modal = document.getElementById('project-modal');
+  const overlay = document.getElementById('modal-overlay');
+  const closeBtn = document.getElementById('modal-close');
+  
+  if (!modal) return;
+
+  const badgeEl = document.getElementById('modal-badge');
+  const titleEl = document.getElementById('modal-title');
+  const problemEl = document.getElementById('modal-problem');
+  const actionEl = document.getElementById('modal-action');
+  const resultEl = document.getElementById('modal-result');
+  const challengeEl = document.getElementById('modal-challenge');
+  const solutionEl = document.getElementById('modal-solution');
+  const tagsContainer = document.getElementById('modal-tags');
+  const demoLink = document.getElementById('modal-link-demo');
+  const githubLink = document.getElementById('modal-link-github');
+
+  const slidesEl = document.getElementById('modal-slides');
+  const prevBtn = document.getElementById('modal-prev');
+  const nextBtn = document.getElementById('modal-next');
+  const dotsEl = document.getElementById('modal-dots');
+  const galleryContainer = document.getElementById('modal-gallery-container');
+
+  let currentSlideIndex = 0;
+  let currentProjectImages = [];
+
+  function openModal(projectId) {
+    const data = projectDetails[projectId];
+    if (!data) return;
+
+    // Load simple fields
+    badgeEl.textContent = data.category;
+    badgeEl.className = 'modal__badge ' + (data.badgeClass || '');
+    titleEl.textContent = data.title;
+    problemEl.textContent = data.problem;
+    actionEl.textContent = data.action;
+    resultEl.textContent = data.result;
+    challengeEl.textContent = data.challenge;
+    solutionEl.textContent = data.solution;
+
+    // Load tags
+    tagsContainer.innerHTML = '';
+    data.tech.forEach(tag => {
+      const span = document.createElement('span');
+      span.className = 'modal__tag';
+      span.textContent = tag;
+      tagsContainer.appendChild(span);
+    });
+
+    // Load links
+    if (data.demoUrl) {
+      demoLink.href = data.demoUrl;
+      demoLink.style.display = 'inline-flex';
+    } else {
+      demoLink.style.display = 'none';
+    }
+
+    if (data.githubUrl) {
+      githubLink.href = data.githubUrl;
+      githubLink.style.display = 'inline-flex';
+    } else {
+      githubLink.style.display = 'none';
+    }
+
+    // Hide links container if no links at all
+    const linksSection = document.querySelector('.modal__section--links');
+    if (linksSection) {
+      if (!data.demoUrl && !data.githubUrl) {
+        linksSection.style.display = 'none';
+      } else {
+        linksSection.style.display = 'block';
+      }
+    }
+
+    // Gallery / Slides
+    currentProjectImages = data.images || [];
+    currentSlideIndex = 0;
+    slidesEl.innerHTML = '';
+    dotsEl.innerHTML = '';
+
+    if (currentProjectImages.length > 0) {
+      galleryContainer.style.display = 'block';
+      currentProjectImages.forEach((imgSrc, index) => {
+        // Create slide
+        const slide = document.createElement('div');
+        slide.className = 'modal__slide';
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = `${data.title} - Slide ${index + 1}`;
+        slide.appendChild(img);
+        slidesEl.appendChild(slide);
+
+        // Create dot if more than one image
+        if (currentProjectImages.length > 1) {
+          const dot = document.createElement('div');
+          dot.className = 'modal__dot' + (index === 0 ? ' active' : '');
+          dot.addEventListener('click', () => {
+            goToSlide(index);
+          });
+          dotsEl.appendChild(dot);
+        }
+      });
+
+      // Show/hide nav buttons
+      if (currentProjectImages.length > 1) {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+      } else {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      }
+
+      updateSlidePosition();
+    } else {
+      galleryContainer.style.display = 'none';
+    }
+
+    // Open Modal
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    
+    // Refresh icons inside modal
+    if (window.lucide) {
+      lucide.createIcons({
+        attrs: {
+          class: 'lucide'
+        }
+      });
+    }
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Slide navigation
+  function goToSlide(index) {
+    if (index < 0) index = currentProjectImages.length - 1;
+    if (index >= currentProjectImages.length) index = 0;
+    currentSlideIndex = index;
+    updateSlidePosition();
+  }
+
+  function updateSlidePosition() {
+    slidesEl.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+    
+    // Update dots
+    const dots = dotsEl.querySelectorAll('.modal__dot');
+    dots.forEach((dot, idx) => {
+      if (idx === currentSlideIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  // Bind click handlers to project cards and details buttons
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach(card => {
+    const projectId = card.getAttribute('data-project');
+    if (!projectId) return;
+
+    card.addEventListener('click', (e) => {
+      // If clicking inside links container, do not open modal
+      if (e.target.closest('.project-card__links a') && !e.target.closest('.project-card__link--detail')) {
+        return;
+      }
+      e.preventDefault();
+      openModal(projectId);
+    });
+  });
+
+  // Bind close events
+  overlay.addEventListener('click', closeModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  // Gallery prev/next
+  prevBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goToSlide(currentSlideIndex - 1);
+  });
+
+  nextBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    goToSlide(currentSlideIndex + 1);
+  });
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+
+    if (e.key === 'Escape') {
+      closeModal();
+    } else if (e.key === 'ArrowLeft' && currentProjectImages.length > 1) {
+      goToSlide(currentSlideIndex - 1);
+    } else if (e.key === 'ArrowRight' && currentProjectImages.length > 1) {
+      goToSlide(currentSlideIndex + 1);
+    }
   });
 }
