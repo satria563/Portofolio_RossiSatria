@@ -1,0 +1,6 @@
+.gemini/
+.agents/
+scratch/
+*temp*
+.DS_Store
+Thumbs.db
