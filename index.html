@@ -775,20 +775,28 @@
   <!-- ========== FOOTER ========== -->
   <footer class="footer">
     <div class="container">
-      <p class="footer__text">
-        © 2026 <span>Muhammad Rossi Satria Fitrah</span>. Dibuat dengan ❤️ dan kode.
-      </p>
+      <div class="footer__info">
+        <div class="footer__status">
+          <span class="status-pulse"></span> Open to Internships & Projects
+        </div>
+        <div class="footer__location">
+          📍 Berbasis di Depok, Indonesia — Waktu Lokal: <span id="footer-local-time">00:00:00 WIB</span>
+        </div>
+        <p class="footer__text">
+          © 2026 <span>Muhammad Rossi Satria Fitrah</span>. Dibuat dengan <span class="heart-pulse">❤️</span> dan kode.
+        </p>
+      </div>
 
       <div class="footer__socials">
-        <a href="https://wa.me/6285782265046" target="_blank" rel="noopener" class="footer__social-link"
+        <a href="https://wa.me/6285782265046" target="_blank" rel="noopener" class="footer__social-link footer__social-link--whatsapp"
           aria-label="WhatsApp" id="footer-whatsapp"><i data-lucide="message-circle"></i></a>
-        <a href="https://instagram.com/satria.563" target="_blank" rel="noopener" class="footer__social-link"
+        <a href="https://instagram.com/satria.563" target="_blank" rel="noopener" class="footer__social-link footer__social-link--instagram"
           aria-label="Instagram" id="footer-instagram"><img src="assets/images/logo-instagram.png" alt="Instagram"
             class="footer__social-logo"></a>
         <a href="https://linkedin.com/in/muhammad-rossi-satria-fitrah-6a04492ab" target="_blank" rel="noopener"
-          class="footer__social-link" aria-label="LinkedIn" id="footer-linkedin"><img
+          class="footer__social-link footer__social-link--linkedin" aria-label="LinkedIn" id="footer-linkedin"><img
             src="assets/images/logo-linkedin.png" alt="LinkedIn" class="footer__social-logo"></a>
-        <a href="mailto:ocicuyot@gmail.com" class="footer__social-link" aria-label="Email" id="footer-email"><i
+        <a href="mailto:ocicuyot@gmail.com" class="footer__social-link footer__social-link--email" aria-label="Email" id="footer-email"><i
             data-lucide="mail"></i></a>
       </div>
     </div>
@@ -876,6 +884,11 @@
       </div>
     </div>
   </div>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
+    <i data-lucide="chevron-up"></i>
+  </button>
 
   <!-- Lucide Icons (Offline Local) -->
   <script src="js/lucide.min.js"></script>

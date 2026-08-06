@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initCardGlow();
   initProjectModal();
+  initFooterTime();
+  initBackToTop();
 });
 
 /* ---------- NAVBAR ---------- */
@@ -615,4 +617,60 @@ function initProjectModal() {
       goToSlide(currentSlideIndex + 1);
     }
   });
+}
+
+/* ---------- DYNAMIC LOCAL TIME WIDGET ---------- */
+function initFooterTime() {
+  const timeEl = document.getElementById('footer-local-time');
+  if (!timeEl) return;
+
+  function updateClock() {
+    const now = new Date();
+    const options = {
+      timeZone: 'Asia/Jakarta',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    };
+
+    try {
+      const timeString = new Intl.DateTimeFormat('id-ID', options).format(now);
+      timeEl.textContent = `${timeString} WIB`;
+    } catch (err) {
+      const hrs = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const secs = String(now.getSeconds()).padStart(2, '0');
+      timeEl.textContent = `${hrs}:${mins}:${secs} WIB`;
+    }
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+}
+
+/* ---------- FLOATING BACK TO TOP ---------- */
+function initBackToTop() {
+  const backToTopBtn = document.getElementById('back-to-top');
+  if (!backToTopBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Re-run lucide in case icons need refresh on button load
+  if (window.lucide) {
+    lucide.createIcons();
+  }
 }
