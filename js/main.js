@@ -55,6 +55,15 @@ function initNavbar() {
         document.body.style.overflow = '';
       });
     });
+
+    // Close mobile menu when clicking outside (on the backdrop overlay)
+    mobileOverlay.addEventListener('click', (e) => {
+      if (e.target === mobileOverlay) {
+        hamburger.classList.remove('active');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
   }
 
   // Smooth scroll for all anchor links
