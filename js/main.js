@@ -371,7 +371,11 @@ const projectDetails = {
     category: "Manajerial",
     badgeClass: "project-card__category-badge--managerial",
     images: [
-      "assets/images/project-managerial.png"
+      "assets/images/k3-toolbox-talk.jpg",
+      "assets/images/k3-rossi-coverall.jpg",
+      "assets/images/k3-assessment-sheet.jpg",
+      "assets/images/k3-zoom-training.png",
+      "assets/images/k3-classroom-tv.png"
     ],
     problem: "Koordinasi alur administrasi, komunikasi instruktur, dan logistik peserta dalam pelatihan sertifikasi K3 yang rentan mengalami hambatan informasi akibat banyaknya pihak yang terlibat secara eksternal.",
     action: "Mengambil kendali sebagai koordinator operasional (PIC). Menjadi jembatan komunikasi utama, mengelola administrasi berkas kelulusan, dan menyusun laporan evaluasi pasca-kegiatan.",
