@@ -392,7 +392,11 @@ const projectDetails = {
     category: "Manajerial",
     badgeClass: "project-card__category-badge--managerial",
     images: [
-      "assets/images/binamuda.jpg"
+      "assets/images/binamuda-large-group.jpg",
+      "assets/images/binamuda-stage-group.jpg",
+      "assets/images/binamuda-tent-setup.jpg",
+      "assets/images/binamuda-school-uniforms.jpg",
+      "assets/images/binamuda-night-group.png"
     ],
     problem: "Mengorganisasikan kepanitiaan besar untuk melaksanakan rangkaian kegiatan kemasyarakatan yang melibatkan ratusan warga dengan keterbatasan alokasi waktu dan anggaran.",
     action: "Memimpin perencanaan acara, merancang pembagian anggaran secara transparan, serta mengarahkan koordinasi tim panitia di lapangan agar pengerjaan efisien.",
