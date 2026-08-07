@@ -346,7 +346,7 @@ const projectDetails = {
     solution: "Saya memecahkan ini dengan memvalidasi koordinat latitude-longitude secara langsung melalui server, menghitung jarak menggunakan rumus Haversine, serta membuat modul hitung pajak modular yang diuji secara intensif dengan Bun test runner.",
     tech: ["Next.js 16", "TypeScript", "PostgreSQL", "Drizzle ORM", "NextAuth.js v5", "Geofencing & GPS", "Bun (Test Runner)"],
     demoUrl: "https://karyaspace.vercel.app",
-    githubUrl: "https://github.com/satria563/karyaspace-hris"
+    githubUrl: "https://github.com/satria563/PENGAJIAN-KARYA-SPACE"
   },
   iot: {
     title: "Project Pembuatan IoT: Sensor Cahaya",
