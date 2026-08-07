@@ -28,15 +28,12 @@ function initNavbar() {
   const mobileLinks = document.querySelectorAll('.navbar__mobile-link');
 
   // Scroll effect
-  let lastScroll = 0;
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > 50) {
+    if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
-    lastScroll = currentScroll;
   });
 
   // Hamburger toggle
@@ -340,7 +337,7 @@ const projectDetails = {
     category: "Web Development",
     badgeClass: "project-card__category-badge--webdev",
     images: [
-      "assets/images/project-karyaspace.png"
+      "assets/images/project-karyaspace.webp"
     ],
     problem: "Perusahaan memerlukan sistem otomatisasi presensi terintegrasi untuk mencegah kecurangan (titip absen), mengelola dispensasi dinas luar, serta menghitung upah lembur legal (PP No. 35/2021) dan perhitungan pajak progresif PPh 21 secara akurat.",
     action: "Membangun web HRIS menggunakan Next.js 16 (App Router) & TypeScript. Mengimplementasikan geofencing radius GPS (150m), bypass presensi dinas luar, swafoto real-time, database PostgreSQL via Drizzle ORM, autentikasi NextAuth.js v5 (JWT Strategy), serta menyusun algoritma payroll & PPh 21.",
@@ -356,7 +353,7 @@ const projectDetails = {
     category: "Teknologi & IoT",
     badgeClass: "project-card__category-badge--networking",
     images: [
-      "assets/images/project-iot.png"
+      "assets/images/project-iot.webp"
     ],
     problem: "Dibutuhkan sistem otomatisasi berbasis sensor untuk membaca data intensitas cahaya lingkungan secara real-time dan menerjemahkannya ke dalam aksi mikrokontroler.",
     action: "Menulis kode pemrograman Arduino, merancang logika pemrosesan data sensor LDR (Light Dependent Resistor), mengonfigurasi batas ambang intensitas cahaya, dan mengunggahnya ke perangkat keras.",
@@ -371,13 +368,13 @@ const projectDetails = {
     category: "Manajerial",
     badgeClass: "project-card__category-badge--managerial",
     images: [
-      "assets/images/k3-group-structure.jpg",
-      "assets/images/k3-harness-selfie.jpg",
-      "assets/images/k3-toolbox-talk.jpg",
-      "assets/images/k3-rossi-coverall.jpg",
-      "assets/images/k3-assessment-sheet.jpg",
-      "assets/images/k3-zoom-training.png",
-      "assets/images/k3-classroom-tv.png"
+      "assets/images/k3-group-structure.webp",
+      "assets/images/k3-harness-selfie.webp",
+      "assets/images/k3-toolbox-talk.webp",
+      "assets/images/k3-rossi-coverall.webp",
+      "assets/images/k3-assessment-sheet.webp",
+      "assets/images/k3-zoom-training.webp",
+      "assets/images/k3-classroom-tv.webp"
     ],
     problem: "Koordinasi alur administrasi, komunikasi instruktur, dan logistik peserta dalam pelatihan sertifikasi K3 yang rentan mengalami hambatan informasi akibat banyaknya pihak yang terlibat secara eksternal.",
     action: "Mengambil kendali sebagai koordinator operasional (PIC). Menjadi jembatan komunikasi utama, mengelola administrasi berkas kelulusan, dan menyusun laporan evaluasi pasca-kegiatan.",
@@ -392,11 +389,11 @@ const projectDetails = {
     category: "Manajerial",
     badgeClass: "project-card__category-badge--managerial",
     images: [
-      "assets/images/binamuda-large-group.jpg",
-      "assets/images/binamuda-stage-group.jpg",
-      "assets/images/binamuda-tent-setup.jpg",
-      "assets/images/binamuda-school-uniforms.jpg",
-      "assets/images/binamuda-night-group.png"
+      "assets/images/binamuda-large-group.webp",
+      "assets/images/binamuda-stage-group.webp",
+      "assets/images/binamuda-tent-setup.webp",
+      "assets/images/binamuda-school-uniforms.webp",
+      "assets/images/binamuda-night-group.webp"
     ],
     problem: "Mengorganisasikan kepanitiaan besar untuk melaksanakan rangkaian kegiatan kemasyarakatan yang melibatkan ratusan warga dengan keterbatasan alokasi waktu dan anggaran.",
     action: "Memimpin perencanaan acara, merancang pembagian anggaran secara transparan, serta mengarahkan koordinasi tim panitia di lapangan agar pengerjaan efisien.",
