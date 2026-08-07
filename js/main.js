@@ -371,6 +371,8 @@ const projectDetails = {
     category: "Manajerial",
     badgeClass: "project-card__category-badge--managerial",
     images: [
+      "assets/images/k3-group-structure.jpg",
+      "assets/images/k3-harness-selfie.jpg",
       "assets/images/k3-toolbox-talk.jpg",
       "assets/images/k3-rossi-coverall.jpg",
       "assets/images/k3-assessment-sheet.jpg",
