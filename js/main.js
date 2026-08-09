@@ -81,7 +81,8 @@ function initNavbar() {
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const href = anchor.getAttribute('href');
-      if (href === '#') return; // Skip if it's just a placeholder hash
+      // Skip if it's a placeholder hash or href was dynamically changed to a full URL
+      if (href === '#' || !href.startsWith('#')) return;
       
       e.preventDefault();
       try {
