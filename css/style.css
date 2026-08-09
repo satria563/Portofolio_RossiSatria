@@ -64,6 +64,26 @@
   --transition-spring: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ---------- Skip to Content (Accessibility) ---------- */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-full);
+  transition: top var(--transition-fast);
+  text-decoration: none;
+}
+
+.skip-to-content:focus {
+  top: 16px;
+}
+
 /* ---------- Reset & Base ---------- */
 *,
 *::before,
@@ -87,6 +107,12 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+body.loaded {
+  opacity: 1;
 }
 
 ::selection {
@@ -116,6 +142,17 @@ button {
   cursor: pointer;
   font-family: inherit;
   font-size: inherit;
+}
+
+/* ---------- Focus-Visible (Keyboard Accessibility) ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
 }
 
 /* ---------- Lucide Icons Global Styling ---------- */
@@ -1043,7 +1080,7 @@ button {
 
 .projects__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
   gap: 28px;
 }
 
@@ -1344,6 +1381,19 @@ button {
 .form-group textarea {
   min-height: 120px;
   resize: vertical;
+}
+
+/* Form Validation Error States */
+.contact__form.submitted .form-group input:invalid,
+.contact__form.submitted .form-group textarea:invalid {
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1);
+}
+
+.form-group input:user-invalid,
+.form-group textarea:user-invalid {
+  border-color: var(--accent-rose);
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1);
 }
 
 .form-submit {
@@ -1791,12 +1841,25 @@ button {
   .skills__categories,
   .projects__filters {
     gap: 8px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    padding-bottom: 4px;
+  }
+
+  .skills__categories::-webkit-scrollbar,
+  .projects__filters::-webkit-scrollbar {
+    display: none;
   }
 
   .skills__category-btn,
   .projects__filter-btn {
     padding: 8px 16px;
     font-size: 0.82rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   /* Certifications Mobile Adjustments */
@@ -2130,3 +2193,100 @@ button {
   }
 }
 
+/* ============================================
+   MOBILE TOUCH TARGETS (Accessibility)
+   Minimum 44×44px for comfortable tapping
+   ============================================ */
+@media (max-width: 768px) {
+  .navbar__hamburger {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer__social-link {
+    width: 44px;
+    height: 44px;
+  }
+
+  .modal__dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .modal__nav {
+    width: 44px;
+    height: 44px;
+  }
+
+  .back-to-top {
+    width: 48px;
+    height: 48px;
+    bottom: 20px;
+    right: 16px;
+  }
+}
+
+/* ============================================
+   PREFERS-REDUCED-MOTION (Accessibility)
+   Respect user's motion preferences
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero__bg-orb {
+    animation: none;
+  }
+
+  .hero__cursor {
+    animation: none;
+    opacity: 1;
+  }
+
+  .hero__image-glow {
+    animation: none;
+  }
+
+  .hero__badge .dot {
+    animation: none;
+  }
+
+  .heart-pulse {
+    animation: none;
+  }
+
+  .status-pulse {
+    animation: none;
+  }
+
+  .skill-card:hover {
+    transform: none;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
+
+  .project-card:hover .project-card__image {
+    transform: none;
+  }
+
+  body {
+    opacity: 1;
+    transition: none;
+  }
+}

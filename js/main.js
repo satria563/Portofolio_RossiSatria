@@ -18,6 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectModal();
   initFooterTime();
   initBackToTop();
+
+  // Smooth page load fade-in
+  requestAnimationFrame(() => {
+    document.body.classList.add('loaded');
+  });
 });
 
 /* ---------- NAVBAR ---------- */
@@ -280,6 +285,15 @@ function initContactForm() {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    // Mark form as submitted for CSS validation styling
+    form.classList.add('submitted');
+
+    // Check native validity before proceeding
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     const submitBtn = form.querySelector('.form-submit');
     const originalText = submitBtn.innerHTML;
 
@@ -309,6 +323,7 @@ function initContactForm() {
     submitBtn.innerHTML = '✓ Membuka Chat!';
     submitBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
     form.reset();
+    form.classList.remove('submitted');
 
     // Reset button state after 3 seconds
     setTimeout(() => {
