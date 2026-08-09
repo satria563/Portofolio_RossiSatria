@@ -61,6 +61,15 @@ function initNavbar() {
         document.body.style.overflow = '';
       }
     });
+
+    // Handle resize to clean up mobile menu styles if window is widened to desktop size
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        hamburger.classList.remove('active');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
   }
 
   // Smooth scroll for all anchor links
