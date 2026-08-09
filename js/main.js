@@ -479,19 +479,31 @@ function initProjectModal() {
       tagsContainer.appendChild(span);
     });
 
-    // Load links
+    // Load links — use explicit click handlers to bypass any event interference
     if (data.demoUrl) {
       demoLink.href = data.demoUrl;
       demoLink.style.display = 'inline-flex';
+      demoLink.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(data.demoUrl, '_blank', 'noopener');
+      };
     } else {
       demoLink.style.display = 'none';
+      demoLink.onclick = null;
     }
 
     if (data.githubUrl) {
       githubLink.href = data.githubUrl;
       githubLink.style.display = 'inline-flex';
+      githubLink.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open(data.githubUrl, '_blank', 'noopener');
+      };
     } else {
       githubLink.style.display = 'none';
+      githubLink.onclick = null;
     }
 
     // Hide links container if no links at all
