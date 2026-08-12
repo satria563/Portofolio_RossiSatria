@@ -488,6 +488,11 @@ select:focus-visible {
   box-shadow: var(--shadow-glow-cyan);
 }
 
+/* Mobile Actions Wrapper */
+.navbar__mobile-actions {
+  display: none;
+}
+
 /* Hamburger */
 .navbar__hamburger {
   display: none;
@@ -2195,6 +2200,12 @@ select:focus-visible {
     display: none;
   }
 
+  .navbar__mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .navbar__hamburger {
     display: flex;
   }
@@ -2226,8 +2237,7 @@ select:focus-visible {
   }
 
   .theme-switch--mobile {
-    margin-top: 8px;
-    margin-right: 0;
+    margin: 0;
   }
 
   .navbar__mobile-link {
