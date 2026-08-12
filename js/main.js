@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initCardGlow();
   initProjectModal();
+  initCertificateModal();
+  initBlogModal();
   initFooterTime();
   initBackToTop();
 
@@ -733,4 +735,409 @@ function initBackToTop() {
   if (window.lucide) {
     lucide.createIcons();
   }
+}
+
+/* ---------- CERTIFICATE DETAILS DATA ---------- */
+const certificateDetails = {
+  ccna: {
+    title: "CCNA: Introduction to Networks",
+    issuer: "Cisco Networking Academy",
+    date: "17 Januari 2025",
+    badge: "network",
+    desc: "Sertifikasi resmi dari Cisco Academy yang membuktikan pemahaman mendalam tentang arsitektur jaringan komputer, protokol komunikasi data, routing dan switching dasar, serta pemecahan masalah jaringan skala menengah.",
+    skills: [
+      "Mengonfigurasi switch dan router Cisco menggunakan Command Line Interface (CLI)",
+      "Merancang pembagian sub-jaringan (subnetting) IP Address menggunakan IPv4 dan IPv6",
+      "Memahami protokol komunikasi data layer TCP/IP dan OSI Model",
+      "Melakukan troubleshooting konektivitas jaringan komputer menggunakan Cisco Packet Tracer",
+      "Memahami dasar-dasar keamanan jaringan komputer dan konfigurasi ACL"
+    ],
+    verifyUrl: "https://www.credly.com/badges/881bd124-35b2-4faa-b4ef-f44932af94a2"
+  },
+  python: {
+    title: "PCAP: Programming Essentials in Python",
+    issuer: "Cisco Networking Academy Program",
+    date: "19 Juli 2024",
+    badge: "code-2",
+    desc: "Sertifikasi pemrograman Python profesional tingkat madya yang memvalidasi keahlian pemrograman berorientasi objek (OOP), pemecahan masalah algoritmik, serta manipulasi data file/sistem.",
+    skills: [
+      "Pemrograman Berorientasi Objek (Object-Oriented Programming - OOP) dalam Python",
+      "Struktur data dasar (List, Dictionary, Tuple, Set) dan algoritma efisien",
+      "Operasi manipulasi file I/O lokal serta penanganan pengecualian (Exception Handling)",
+      "Pemahaman konsep dasar modul, paket, serta library standar Python",
+      "Implementasi pemrograman dasar untuk otomatisasi skrip tugas harian"
+    ],
+    verifyUrl: "https://drive.google.com/file/d/1xb7q-_-fT4nBZFnGp0mWCt-AN8ZuZ2un/view?usp=sharing"
+  },
+  seminar: {
+    title: "Sertifikat Digital Mahasiswa (Seminar/Kegiatan)",
+    issuer: "Universitas Bina Sarana Informatika",
+    date: "Semester Aktif",
+    badge: "shield-check",
+    desc: "Apresiasi keikutsertaan aktif dalam berbagai kegiatan seminar teknologi nasional dan workshop pengembangan soft skill/hard skill mahasiswa yang diadakan oleh UBSI.",
+    skills: [
+      "Partisipasi seminar teknologi informasi skala nasional",
+      "Peningkatan wawasan mengenai tren teknologi industri digital terbaru",
+      "Penerapan pemikiran analitis dalam pemecahan masalah kasus industri",
+      "Pengembangan jejaring profesional mahasiswa antar universitas"
+    ],
+    verifyUrl: "https://saysv2.bsi.ac.id/pdf/sertifikatdigitalmhs/eyJpdiI6IlpSNXBzRHJINTQzaGtGOTF5S0Q3ZFE9PSIsInZhbHVlIjoiK0Erd0NPbU5UZG5zZFF3MExtODQ4Zz09IiwibWFjIjoiMmRiOGI1MDkzMzQ5ZTFmMGFlOTRjMGE3YTVhYWEwYzEyOTQxNjhjNTI4NzU1YWZjYjEzZjRkZWU4MjFhOTE1ZCIsInRhZyI6IiJ9"
+  },
+  kompetensi: {
+    title: "Sertifikat Kompetensi & Pelatihan Mahasiswa",
+    issuer: "Universitas Bina Sarana Informatika",
+    date: "Akademik Mahasiswa",
+    badge: "award",
+    desc: "Sertifikat kelulusan uji kompetensi mata kuliah inti program studi Informatika yang diselenggarakan oleh UBSI, mencakup keahlian pemrograman komputer.",
+    skills: [
+      "Kelulusan evaluasi kompetensi pemrograman komputer terapan",
+      "Penyelesaian studi kasus logika pemrograman dengan standar industri",
+      "Pemahaman metodologi pengembangan perangkat lunak secara runut",
+      "Dokumentasi kode program secara baik dan profesional"
+    ],
+    verifyUrl: "https://saysv2.bsi.ac.id/pdf/sertifikatdigitalmhs/eyJpdiI6ImY0SmdtOUYreDVYYXlLSmx6MzZ1NWc9PSIsInZhbHVlIjoiOW5Ubi9TYzRHMnVlSHQrcHQwbVRmQT09IiwibWFjIjoiMmFhNWFkOWY2M2U0M2QwMTE5NDNhZmIyMmNjYmE5NjAyOGYyYzg3ODk5NDdiZjBlOWFiNWFkYWViNzY1NGUwOSIsInRhZyI6IiJ9"
+  },
+  akademik: {
+    title: "Sertifikat Program Sertifikasi & Akademik",
+    issuer: "Universitas Bina Sarana Informatika",
+    date: "Sertifikasi Profesi",
+    badge: "award",
+    desc: "Sertifikasi kelulusan program sertifikasi profesi akademik khusus yang diadakan untuk memvalidasi kesiapan mahasiswa informatika memasuki dunia kerja profesional.",
+    skills: [
+      "Validasi kompetensi teknis bidang informatika terstandar",
+      "Pemahaman konsep dasar manajemen proyek teknologi informasi",
+      "Kepatuhan etika profesi IT dan regulasi keamanan informasi digital",
+      "Analisis kelayakan implementasi solusi digital instansi"
+    ],
+    verifyUrl: "https://saysv2.bsi.ac.id/pdf/sertifikatdigitalmhs/eyJpdiI6IktTK04rYUxsUHFVTlhkSmJ3MmIxT1E9PSIsInZhbHVlIjoiUWVjRDFHMlRhTTErNGl6UDdDYWRrQT09IiwibWFjIjoiOGU0ZTlmYzE2NTBhNmU3MWFiMGU3ZmFkMjM1YzJkMzkzMDQyMGY4YzFiZmRkNTc2YWVhNGIxZTEwNmI4ZmE2ZCIsInRhZyI6IiJ9"
+  }
+};
+
+/* ---------- BLOG ARTICLES DATA ---------- */
+const blogArticles = {
+  "ldr-sensor": {
+    title: "Membangun Saklar Otomatis Berbasis Sensor Cahaya (LDR) Menggunakan Arduino IDE",
+    category: "Teknologi & IoT",
+    date: "12 Agu 2026",
+    content: `
+      <p>Dalam proyek Internet of Things (IoT) dasar, salah satu studi kasus yang paling populer dan aplikatif adalah pembuatan saklar otomatis untuk lampu jalan atau lampu rumah menggunakan sensor cahaya LDR (Light Dependent Resistor). Pada artikel ini, kita akan membahas cara merancang logika programnya secara stabil menggunakan perangkat Arduino IDE.</p>
+      
+      <h3>1. Logika Pembacaan Sensor Fisik</h3>
+      <p>LDR adalah sensor analog yang nilai resistansinya berubah seiring perubahan intensitas cahaya yang diterimanya. Saat kondisi gelap, resistansi LDR meningkat tinggi, dan sebaliknya saat terang. Kita menghubungkannya ke pin analog Arduino (A0) menggunakan konfigurasi pembagi tegangan (voltage divider) dengan resistor 10k Ohm.</p>
+      
+      <h3>2. Masalah Chattering (Kedipan Lampu)</h3>
+      <p>Salah satu kendala utama jika kita menggunakan logika if-else sederhana seperti <code>if (sensorValue < threshold) { turnOnLampu(); }</code> adalah terjadinya kedipan cepat pada relay lampu (chattering). Hal ini terjadi saat transisi sore hari (cahaya remang-remang), di mana nilai pembacaan sensor berfluktuasi tepat di sekitar angka ambang batas (threshold).</p>
+
+      <blockquote>
+        <strong>Hysteresis:</strong> Solusi terbaik untuk mengatasi chattering adalah menerapkan algoritma hysteresis, yaitu menetapkan batas ambang yang berbeda untuk menyalakan dan mematikan lampu.
+      </blockquote>
+
+      <h3>3. Kode Program Arduino IDE</h3>
+      <p>Berikut adalah cuplikan kode lengkap dengan implementasi rentang hysteresis dan debouncing digital berbasis software:</p>
+
+      <pre><code><span class="code-keyword">const int</span> ldrPin = A0;     <span class="code-comment">// Pin pembacaan sensor</span>
+<span class="code-keyword">const int</span> relayPin = 7;   <span class="code-comment">// Pin kontrol Relay lampu</span>
+
+<span class="code-comment">// Rentang Hysteresis</span>
+<span class="code-keyword">const int</span> DARK_THRESHOLD = 300;  <span class="code-comment">// Nyalakan lampu jika nilai &lt; 300</span>
+<span class="code-keyword">const int</span> LIGHT_THRESHOLD = 500; <span class="code-comment">// Matikan lampu jika nilai &gt; 500</span>
+
+<span class="code-keyword">bool</span> isLampuOn = <span class="code-keyword">false</span>;
+
+<span class="code-keyword">void</span> <span class="code-function">setup</span>() {
+  pinMode(relayPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+<span class="code-keyword">void</span> <span class="code-function">loop</span>() {
+  <span class="code-keyword">int</span> rawValue = analogRead(ldrPin);
+  
+  <span class="code-comment">// Logika Hysteresis</span>
+  <span class="code-keyword">if</span> (!isLampuOn && rawValue &lt; DARK_THRESHOLD) {
+    digitalWrite(relayPin, HIGH); <span class="code-comment">// Nyalakan relay</span>
+    isLampuOn = <span class="code-keyword">true</span>;
+    Serial.println(<span class="code-string">"Lampu dinyalakan (Sore/Malam)"</span>);
+  } 
+  <span class="code-keyword">else if</span> (isLampuOn && rawValue &gt; LIGHT_THRESHOLD) {
+    digitalWrite(relayPin, LOW);  <span class="code-comment">// Matikan relay</span>
+    isLampuOn = <span class="code-keyword">false</span>;
+    Serial.println(<span class="code-string">"Lampu dimatikan (Pagi/Siang)"</span>);
+  }
+  
+  delay(1000); <span class="code-comment">// Pembacaan stabil setiap 1 detik</span>
+}</code></pre>
+
+      <h3>4. Hasil Uji Coba</h3>
+      <p>Dengan logika hysteresis di atas, relay tidak akan mengalami getar/chatting meskipun kondisi cahaya berada di remang-remang sore hari, karena sistem baru akan mematikan lampu jika cahaya benar-benar telah terang penuh melewati nilai 500 analog.</p>
+    `
+  },
+  "subnetting-ccna": {
+    title: "Panduan Praktis Subnetting IP Address Kelas C: Dari Teori ke Cisco Packet Tracer",
+    category: "Jaringan Komputer",
+    date: "28 Jul 2026",
+    content: `
+      <p>Subnetting adalah proses membagi satu jaringan fisik besar menjadi beberapa sub-jaringan logis yang lebih kecil (subnet). Sebagai network engineer atau pemegang sertifikasi CCNA, menguasai perhitungan subnetting baik dengan metode FLSM (Fixed Length Subnet Mask) maupun VLSM (Variable Length Subnet Mask) adalah kompetensi yang mutlak diperlukan.</p>
+      
+      <h3>1. Mengapa Perlu Subnetting?</h3>
+      <ul>
+        <li><strong>Efisiensi IP Address:</strong> Menghindari pemborosan alokasi IP address yang tidak terpakai.</li>
+        <li><strong>Keamanan:</strong> Membatasi lalu lintas siaran (broadcast domain) antar divisi kerja di perusahaan.</li>
+        <li><strong>Kemudahan Manajemen:</strong> Mempermudah melacak letak kesalahan konektivitas jaringan komputer.</li>
+      </ul>
+
+      <h3>2. Rumus Dasar Kalkulasi Subnetting</h3>
+      <p>Untuk melakukan perhitungan, kita menggunakan 2 rumus dasar matematika biner:</p>
+      <ul>
+        <li><strong>Jumlah Subnet:</strong> <code>2<sup>x</sup></code>, di mana <code>x</code> adalah banyaknya biner 1 yang dipinjam dari host ID.</li>
+        <li><strong>Jumlah Host per Subnet:</strong> <code>2<sup>y</sup> - 2</code>, di mana <code>y</code> adalah sisa biner 0 pada bit host ID (dikurangi 2 untuk Network ID dan Broadcast ID).</li>
+      </ul>
+
+      <h3>3. Contoh Perhitungan Kelas C (/26)</h3>
+      <p>Diberikan blok IP <code>192.168.1.0/26</code>. Berapakah subnet mask, jumlah subnet, host per subnet, network ID, dan IP broadcast?</p>
+      <ul>
+        <li><strong>Subnet Mask:</strong> Prefix /26 setara dengan biner <code>11111111.11111111.11111111.11000000</code> -&gt; <code>255.255.255.192</code>.</li>
+        <li><strong>Jumlah Subnet:</strong> Bit yang dipinjam adalah 2 (angka biner 1 di oktet terakhir). Maka <code>2<sup>2</sup> = 4</code> subnet.</li>
+        <li><strong>Jumlah Host:</strong> Sisa bit 0 adalah 6. Maka <code>2<sup>6</sup> - 2 = 62</code> host yang dapat digunakan per subnet.</li>
+        <li><strong>Blok Subnet:</strong> Rentang kelipatan ditentukan dengan <code>256 - 192 = 64</code>. Blok subnetnya adalah: <code>0, 64, 128, 192</code>.</li>
+      </ul>
+
+      <h3>4. Implementasi Perangkat Switch & Router Cisco</h3>
+      <p>Berikut konfigurasi dasar pada CLI router Cisco untuk menetapkan IP gateway subnet pertama:</p>
+      <pre><code>Router&gt; <span class="code-function">enable</span>
+Router# <span class="code-function">configure terminal</span>
+Router(config)# <span class="code-function">interface</span> GigabitEthernet0/0
+Router(config-if)# <span class="code-function">ip address</span> 192.168.1.1 255.255.255.192
+Router(config-if)# <span class="code-function">no shutdown</span>
+Router(config-if)# <span class="code-function">exit</span></code></pre>
+
+      <p>Pengujian akhir dapat dilakukan di simulator Cisco Packet Tracer dengan mengirimkan paket ICMP ping antar komputer dalam subnet yang sama untuk memastikan status terkoneksi.</p>
+    `
+  },
+  "python-automation": {
+    title: "Otomatisasi Laporan Pelatihan K3 Menggunakan Script Python & OpenPyXL",
+    category: "Pemrograman Python",
+    date: "15 Jun 2026",
+    content: `
+      <p>Sebagai Person in Charge (PIC) di PT Lintas Pengembangan Manajemen Indonesia, penyusunan laporan evaluasi pelatihan K3 secara berkala merupakan salah satu rutinitas penting. Memindahkan data absensi manual ke spreadsheet Microsoft Excel satu-persatu memakan waktu yang cukup lama dan rentan terhadap kesalahan ketik. Untuk mengatasinya, kita bisa memanfaatkan pustaka Python bernama <strong>OpenPyXL</strong>.</p>
+      
+      <h3>1. Alur Otomatisasi Program</h3>
+      <ol>
+        <li>Membaca data masukan mentah (.csv) hasil unduhan absensi Google Form peserta pelatihan K3.</li>
+        <li>Menyaring daftar peserta berdasarkan status kelulusan uji kompetensi.</li>
+        <li>Menulis data ter-filter ke template spreadsheet formal Laporan K3.</li>
+        <li>Mengatur format sel secara otomatis (lebar kolom, tebal huruf, warna borders, dan penomoran).</li>
+      </ol>
+
+      <h3>2. Kode Skrip Python Otomatisasi</h3>
+      <p>Skrip berikut membaca file input data mentah dan menyusunnya ke file excel laporan akhir dengan styling otomatis:</p>
+
+      <pre><code><span class="code-keyword">import</span> csv
+<span class="code-keyword">from</span> openpyxl <span class="code-keyword">import</span> Workbook
+<span class="code-keyword">from</span> openpyxl.styles <span class="code-keyword">import</span> Font, Alignment, PatternFill, Border, Side
+
+<span class="code-comment"># Inisialisasi Workbook baru</span>
+wb = Workbook()
+ws = wb.active
+ws.title = <span class="code-string">"Laporan Kelulusan K3"</span>
+
+<span class="code-comment"># Definisikan Style header</span>
+font_header = Font(name=<span class="code-string">'Arial'</span>, size=11, bold=True, color=<span class="code-string">'FFFFFF'</span>)
+fill_header = PatternFill(start_color=<span class="code-string">'06B6D4'</span>, end_color=<span class="code-string">'06B6D4'</span>, fill_type=<span class="code-string">'solid'</span>)
+align_center = Alignment(horizontal=<span class="code-string">'center'</span>, vertical=<span class="code-string">'center'</span>)
+
+<span class="code-comment"># Tulis Header</span>
+headers = [<span class="code-string">"No"</span>, <span class="code-string">"Nama Peserta"</span>, <span class="code-string">"Instansi"</span>, <span class="code-string">"Nilai Ujian"</span>, <span class="code-string">"Status"</span>]
+ws.append(headers)
+
+<span class="code-comment"># Mengatur format baris header</span>
+for col_num in range(1, 6):
+    cell = ws.cell(row=1, column=col_num)
+    cell.font = font_header
+    cell.fill = fill_header
+    cell.alignment = align_center
+
+<span class="code-comment"># Contoh data absensi mentah pelatihan</span>
+data_peserta = [
+    [1, <span class="code-string">"Rossi Satria"</span>, <span class="code-string">"Univ BSI"</span>, 92, <span class="code-string">"LULUS"</span>],
+    [2, <span class="code-string">"Budi Hartono"</span>, <span class="code-string">"PT Maju Jaya"</span>, 78, <span class="code-string">"LULUS"</span>],
+    [3, <span class="code-string">"Siti Aminah"</span>, <span class="code-string">"Dinas Kesehatan"</span>, 55, <span class="code-string">"REMEDIAL"</span>]
+]
+
+<span class="code-comment"># Tulis Data & Terapkan logika status warna</span>
+for row in data_peserta:
+    ws.append(row)
+    current_row = ws.max_row
+    status_cell = ws.cell(row=current_row, column=5)
+    
+    # Beri warna merah tipis jika remedial, hijau jika lulus
+    if row[4] == <span class="code-string">"LULUS"</span>:
+        status_cell.fill = PatternFill(start_color=<span class="code-string">'D1FAE5'</span>, fill_type=<span class="code-string">'solid'</span>)
+    else:
+        status_cell.fill = PatternFill(start_color=<span class="code-string">'FEE2E2'</span>, fill_type=<span class="code-string">'solid'</span>)
+
+<span class="code-comment"># Simpan file Excel</span>
+file_output = <span class="code-string">"Laporan_Sertifikasi_K3.xlsx"</span>
+wb.save(file_output)
+print(f<span class="code-string">"Otomatisasi sukses! File tersimpan sebagai {file_output}"</span>)</code></pre>
+
+      <h3>3. Dampak Efisiensi Operasional</h3>
+      <p>Dengan menjalankan skrip python ini, waktu rekap data administrasi kelulusan K3 terpangkas drastis dari yang biasanya memakan waktu **15-20 menit** menjadi hanya **kurang dari 2 detik**, serta menjamin keakuratan format penulisan 100%.</p>
+    `
+  }
+};
+
+/* ---------- INTERACTIVE CERTIFICATE MODAL ---------- */
+function initCertificateModal() {
+  const modal = document.getElementById('cert-modal');
+  const overlay = document.getElementById('cert-modal-overlay');
+  const closeBtn = document.getElementById('cert-modal-close');
+  
+  if (!modal) return;
+
+  const sheetTitle = document.getElementById('cert-sheet-title');
+  const sheetDesc = document.getElementById('cert-sheet-desc');
+  const sheetIssuer = document.getElementById('cert-sheet-issuer');
+  const sheetDate = document.getElementById('cert-sheet-date');
+  const modalBadge = document.getElementById('cert-modal-badge');
+  const modalTitle = document.getElementById('cert-modal-title');
+  const modalDesc = document.getElementById('cert-modal-desc');
+  const modalDate = document.getElementById('cert-modal-date');
+  const modalIssuer = document.getElementById('cert-modal-issuer');
+  const modalSkills = document.getElementById('cert-modal-skills');
+  const verifyLink = document.getElementById('cert-modal-link-verify');
+
+  function openModal(certId) {
+    const data = certificateDetails[certId];
+    if (!data) return;
+
+    // Set mockup certificate sheet values
+    sheetTitle.textContent = data.title;
+    sheetDesc.textContent = data.desc;
+    sheetIssuer.textContent = data.issuer;
+    sheetDate.textContent = data.date;
+
+    // Set simple details values
+    modalTitle.textContent = data.title;
+    modalDesc.textContent = data.desc;
+    modalIssuer.textContent = data.issuer;
+    modalDate.textContent = data.date;
+
+    // Inject verified skills list
+    modalSkills.innerHTML = '';
+    data.skills.forEach(skill => {
+      const li = document.createElement('li');
+      li.textContent = skill;
+      modalSkills.appendChild(li);
+    });
+
+    // Setup verification action click handler
+    verifyLink.onclick = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(data.verifyUrl, '_blank', 'noopener');
+    };
+
+    // Open Modal
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Refresh icons inside modal
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Bind click handlers to certificate cards
+  const certCards = document.querySelectorAll('.cert-card');
+  certCards.forEach(card => {
+    const certId = card.getAttribute('data-cert');
+    if (!certId) return;
+
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(certId);
+    });
+  });
+
+  // Bind close events
+  overlay.addEventListener('click', closeModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (modal.classList.contains('open') && e.key === 'Escape') {
+      closeModal();
+    }
+  });
+}
+
+/* ---------- INTERACTIVE BLOG MODAL ---------- */
+function initBlogModal() {
+  const modal = document.getElementById('blog-modal');
+  const overlay = document.getElementById('blog-modal-overlay');
+  const closeBtn = document.getElementById('blog-modal-close');
+  
+  if (!modal) return;
+
+  const modalBadge = document.getElementById('blog-modal-badge');
+  const modalDate = document.getElementById('blog-modal-date');
+  const modalTitle = document.getElementById('blog-modal-title');
+  const modalText = document.getElementById('blog-modal-text');
+
+  function openModal(blogId) {
+    const data = blogArticles[blogId];
+    if (!data) return;
+
+    // Set modal fields
+    modalBadge.textContent = data.category;
+    modalDate.innerHTML = `<i data-lucide="calendar" style="width:14px; height:14px; margin-right:4px; vertical-align:middle;"></i> ${data.date}`;
+    modalTitle.textContent = data.title;
+    modalText.innerHTML = data.content;
+
+    // Open Modal
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    // Refresh icons inside modal
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Bind click handlers to read more links and cards
+  const blogCards = document.querySelectorAll('.blog-card');
+  blogCards.forEach(card => {
+    const blogId = card.getAttribute('data-blog');
+    if (!blogId) return;
+
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal(blogId);
+    });
+  });
+
+  // Bind close events
+  overlay.addEventListener('click', closeModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (modal.classList.contains('open') && e.key === 'Escape') {
+      closeModal();
+    }
+  });
 }

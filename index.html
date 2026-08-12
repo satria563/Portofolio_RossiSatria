@@ -95,6 +95,7 @@
         <a href="#skills" class="navbar__link">Skills</a>
         <a href="#experience" class="navbar__link">Experience</a>
         <a href="#projects" class="navbar__link">Projects</a>
+        <a href="#blog" class="navbar__link">Blog</a>
         <a href="#contact" class="navbar__link">Contact</a>
         <a href="assets/docs/CV_RossiSatria.pdf" download class="navbar__link navbar__link--cv"><i
             data-lucide="file-text"></i> Unduh CV</a>
@@ -116,6 +117,7 @@
       <a href="#skills" class="navbar__mobile-link">Skills</a>
       <a href="#experience" class="navbar__mobile-link">Experience</a>
       <a href="#projects" class="navbar__mobile-link">Projects</a>
+      <a href="#blog" class="navbar__mobile-link">Blog</a>
       <a href="#contact" class="navbar__mobile-link">Contact</a>
       <a href="assets/docs/CV_RossiSatria.pdf" download class="navbar__mobile-link navbar__mobile-link--cv"><i
           data-lucide="file-text"></i> Unduh CV</a>
@@ -454,7 +456,7 @@
           </div>
 
           <div class="cert-grid">
-            <a href="https://www.credly.com/badges/881bd124-35b2-4faa-b4ef-f44932af94a2" target="_blank" rel="noopener" class="cert-card">
+            <a href="#" class="cert-card" data-cert="ccna">
               <div class="cert-card__badge">
                 <i data-lucide="network"></i>
               </div>
@@ -465,7 +467,7 @@
               <div class="cert-card__date">17 Jan 2025</div>
             </a>
 
-            <a href="https://drive.google.com/file/d/1xb7q-_-fT4nBZFnGp0mWCt-AN8ZuZ2un/view?usp=sharing" target="_blank" rel="noopener" class="cert-card">
+            <a href="#" class="cert-card" data-cert="python">
               <div class="cert-card__badge">
                 <i data-lucide="code-2"></i>
               </div>
@@ -476,7 +478,7 @@
               <div class="cert-card__date">19 Jul 2024</div>
             </a>
 
-            <a href="https://saysv2.bsi.ac.id/pdf/sertifikatdigitalmhs/eyJpdiI6IlpSNXBzRHJINTQzaGtGOTF5S0Q3ZFE9PSIsInZhbHVlIjoiK0Erd0NPbU5UZG5zZFF3MExtODQ4Zz09IiwibWFjIjoiMmRiOGI1MDkzMzQ5ZTFmMGFlOTRjMGE3YTVhYWEwYzEyOTQxNjhjNTI4NzU1YWZjYjEzZjRkZWU4MjFhOTE1ZCIsInRhZyI6IiJ9" target="_blank" rel="noopener" class="cert-card">
+            <a href="#" class="cert-card" data-cert="seminar">
               <div class="cert-card__badge">
                 <i data-lucide="shield-check"></i>
               </div>
@@ -487,7 +489,7 @@
               <div class="cert-card__date">BSI</div>
             </a>
 
-            <a href="https://saysv2.bsi.ac.id/pdf/sertifikatdigitalmhs/eyJpdiI6ImY0SmdtOUYreDVYYXlLSmx6MzZ1NWc9PSIsInZhbHVlIjoiOW5Ubi9TYzRHMnVlSHQrcHQwbVRmQT09IiwibWFjIjoiMmFhNWFkOWY2M2U0M2QwMTE5NDNhZmIyMmNjYmE5NjAyOGYyYzg3ODk5NDdiZjBlOWFiNWFkYWViNzY1NGUwOSIsInRhZyI6IiJ9" target="_blank" rel="noopener" class="cert-card">
+            <a href="#" class="cert-card" data-cert="kompetensi">
               <div class="cert-card__badge">
                 <i data-lucide="award"></i>
               </div>
@@ -498,7 +500,7 @@
               <div class="cert-card__date">BSI</div>
             </a>
 
-            <a href="https://saysv2.bsi.ac.id/pdf/sertifikatdigitalmhs/eyJpdiI6IktTK04rYUxsUHFVTlhkSmJ3MmIxT1E9PSIsInZhbHVlIjoiUWVjRDFHMlRhTTErNGl6UDdDYWRrQT09IiwibWFjIjoiOGU0ZTlmYzE2NTBhNmU3MWFiMGU3ZmFkMjM1YzJkMzkzMDQyMGY4YzFiZmRkNTc2YWVhNGIxZTEwNmI4ZmE2ZCIsInRhZyI6IiJ9" target="_blank" rel="noopener" class="cert-card">
+            <a href="#" class="cert-card" data-cert="akademik">
               <div class="cert-card__badge">
                 <i data-lucide="award"></i>
               </div>
@@ -742,6 +744,79 @@
     </div>
   </section>
 
+  <!-- ========== BLOG SECTION ========== -->
+  <section class="section" id="blog">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Blog & Catatan Teknis</p>
+        <h2 class="section-title">Artikel & Studi Kasus Terbaru</h2>
+        <p class="section-subtitle">Berbagi wawasan seputar integrasi IoT, administrasi jaringan komputer, dan pemrograman Python.</p>
+      </div>
+
+      <div class="blog__grid">
+        <!-- Blog 1: LDR Sensor -->
+        <article class="blog-card reveal" data-blog="ldr-sensor">
+          <div class="blog-card__image-wrapper blog-card__image-wrapper--iot">
+            <div class="blog-card__icon"><i data-lucide="cpu"></i></div>
+          </div>
+          <div class="blog-card__body">
+            <div class="blog-card__meta">
+              <span class="blog-card__category">Teknologi & IoT</span>
+              <span class="blog-card__date">12 Agu 2026</span>
+            </div>
+            <h3 class="blog-card__title">Membangun Saklar Otomatis Berbasis Sensor Cahaya (LDR) Menggunakan Arduino IDE</h3>
+            <p class="blog-card__excerpt">
+              Panduan langkah demi langkah merancang sistem otomatisasi lampu berbasis sensor LDR, mengatasi masalah chattering dengan algoritma hysteresis, dan implementasi debouncing di Arduino IDE.
+            </p>
+            <a href="#" class="blog-card__link" data-blog="ldr-sensor">
+              Baca Selengkapnya <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Blog 2: Subnetting -->
+        <article class="blog-card reveal reveal-delay-1" data-blog="subnetting-ccna">
+          <div class="blog-card__image-wrapper blog-card__image-wrapper--network">
+            <div class="blog-card__icon"><i data-lucide="network"></i></div>
+          </div>
+          <div class="blog-card__body">
+            <div class="blog-card__meta">
+              <span class="blog-card__category">Jaringan Komputer</span>
+              <span class="blog-card__date">28 Jul 2026</span>
+            </div>
+            <h3 class="blog-card__title">Panduan Praktis Subnetting IP Address Kelas C: Dari Teori ke Cisco Packet Tracer</h3>
+            <p class="blog-card__excerpt">
+              Penjelasan mendalam mengenai kalkulasi subnetting IP address kelas C menggunakan metode VLSM/FLSM, cara menghitung Network ID dan Host range, serta simulasinya pada switch & router Cisco.
+            </p>
+            <a href="#" class="blog-card__link" data-blog="subnetting-ccna">
+              Baca Selengkapnya <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- Blog 3: Python Automation -->
+        <article class="blog-card reveal reveal-delay-2" data-blog="python-automation">
+          <div class="blog-card__image-wrapper blog-card__image-wrapper--python">
+            <div class="blog-card__icon"><i data-lucide="code-2"></i></div>
+          </div>
+          <div class="blog-card__body">
+            <div class="blog-card__meta">
+              <span class="blog-card__category">Pemrograman Python</span>
+              <span class="blog-card__date">15 Jun 2026</span>
+            </div>
+            <h3 class="blog-card__title">Otomatisasi Laporan Pelatihan K3 Menggunakan Script Python & OpenPyXL</h3>
+            <p class="blog-card__excerpt">
+              Cara menghemat waktu administrasi dengan membuat skrip Python otomatis untuk mengolah data excel laporan kegiatan K3 PT LPMI, memformat sel, dan mencetak laporan PDF siap pakai.
+            </p>
+            <a href="#" class="blog-card__link" data-blog="python-automation">
+              Baca Selengkapnya <i data-lucide="arrow-right"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CONTACT SECTION ========== -->
   <section class="section" id="contact">
     <div class="container">
@@ -939,6 +1014,110 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CERTIFICATE MODAL ========== -->
+  <div class="modal" id="cert-modal" aria-hidden="true">
+    <div class="modal__overlay" id="cert-modal-overlay"></div>
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+      <button class="modal__close" id="cert-modal-close" aria-label="Tutup modal">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <div class="modal__content">
+        <!-- Visual Mockup of Digital Certificate -->
+        <div class="modal__cert-sheet-container">
+          <div class="modal__cert-sheet">
+            <div class="modal__cert-sheet-inner">
+              <div class="modal__cert-badge"><i data-lucide="award"></i></div>
+              <h3 class="modal__cert-sheet-title" id="cert-sheet-title">Nama Sertifikat</h3>
+              <p class="modal__cert-sheet-subtitle">Diberikan Kepada</p>
+              <h4 class="modal__cert-sheet-name">Muhammad Rossi Satria Fitrah</h4>
+              <p class="modal__cert-sheet-desc" id="cert-sheet-desc">Deskripsi kompetensi...</p>
+              <div class="modal__cert-sheet-footer">
+                <div>
+                  <span class="label">Penerbit</span>
+                  <span class="value" id="cert-sheet-issuer">Penerbit</span>
+                </div>
+                <div>
+                  <span class="label">Tanggal Terbit</span>
+                  <span class="value" id="cert-sheet-date">Tanggal</span>
+                </div>
+              </div>
+              <div class="modal__cert-verified">
+                <i data-lucide="shield-check"></i> Kredensial Terverifikasi Resmi
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal__body">
+          <div class="modal__header">
+            <span class="modal__badge" id="cert-modal-badge">Sertifikasi</span>
+            <h2 class="modal__title" id="cert-modal-title">Nama Sertifikat</h2>
+          </div>
+
+          <div class="modal__grid">
+            <div class="modal__main">
+              <div class="modal__section">
+                <h3 class="modal__section-title"><i data-lucide="info"></i> Detail Kredensial</h3>
+                <p id="cert-modal-desc">Deskripsi lengkap mengenai sertifikasi...</p>
+              </div>
+
+              <div class="modal__section">
+                <h3 class="modal__section-title"><i data-lucide="check-square"></i> Kompetensi yang Divalidasi</h3>
+                <ul class="modal__list" id="cert-modal-skills">
+                  <!-- Skills list will be injected here -->
+                </ul>
+              </div>
+            </div>
+
+            <div class="modal__side">
+              <div class="modal__section">
+                <h3 class="modal__section-title"><i data-lucide="calendar"></i> Informasi Kredensial</h3>
+                <p style="margin-bottom: 8px;"><strong>Tanggal Rilis:</strong> <span id="cert-modal-date">Maret 2026</span></p>
+                <p><strong>Penerbit:</strong> <span id="cert-modal-issuer">PT LPMI / Cisco</span></p>
+              </div>
+
+              <div class="modal__section modal__section--links">
+                <h3 class="modal__section-title"><i data-lucide="link"></i> Verifikasi</h3>
+                <div class="modal__links">
+                  <a href="#" target="_blank" rel="noopener" class="btn btn--primary btn--sm" id="cert-modal-link-verify" style="width: 100%;">
+                    <i data-lucide="shield-check"></i> Verifikasi Kredensial
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== BLOG MODAL ========== -->
+  <div class="modal" id="blog-modal" aria-hidden="true">
+    <div class="modal__overlay" id="blog-modal-overlay"></div>
+    <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="blog-modal-title" style="max-width: 850px;">
+      <button class="modal__close" id="blog-modal-close" aria-label="Tutup modal">
+        <i data-lucide="x"></i>
+      </button>
+      
+      <div class="modal__content">
+        <div class="modal__body" style="padding-top: 30px;">
+          <div class="modal__header" style="margin-bottom: 24px;">
+            <div class="blog-card__meta" style="margin-bottom: 8px;">
+              <span class="modal__badge" id="blog-modal-badge" style="margin-right: 12px;">Kategori</span>
+              <span id="blog-modal-date" style="font-size: 0.85rem; color: var(--text-muted);"><i data-lucide="calendar" style="width:14px; height:14px; margin-right:4px;"></i> 12 Agu 2026</span>
+            </div>
+            <h2 class="modal__title" id="blog-modal-title" style="font-size: 1.8rem; line-height: 1.3;">Judul Artikel</h2>
+          </div>
+
+          <div class="modal__blog-content" id="blog-modal-text">
+            <!-- Article body content will be dynamically injected here -->
           </div>
         </div>
       </div>
