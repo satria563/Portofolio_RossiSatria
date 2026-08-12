@@ -2696,3 +2696,548 @@ select:focus-visible {
     transition: none;
   }
 }
+
+/* ============================================
+   GAYA CETAK (PRINT STYLE / PDF CV GENERATOR)
+   ============================================ */
+@media print {
+  /* 1. Reset Warna Dasar & Latar Belakang */
+  :root {
+    --bg-primary: #ffffff !important;
+    --bg-secondary: #ffffff !important;
+    --bg-surface: #ffffff !important;
+    --bg-card: #ffffff !important;
+    --bg-glass: #ffffff !important;
+    --text-primary: #111111 !important;
+    --text-secondary: #333333 !important;
+    --text-muted: #555555 !important;
+    --text-heading: #000000 !important;
+    --border-card: #dddddd !important;
+    --border-subtle: #eeeeee !important;
+    --accent-cyan: #097d8e !important;
+    --accent-violet: #6d28d9 !important;
+    --accent-blue: #1d4ed8 !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    opacity: 1 !important;
+    transition: none !important;
+  }
+
+  /* 2. Sembunyikan Elemen Non-Cetak */
+  .navbar,
+  .navbar__mobile-overlay,
+  .skip-to-content,
+  .bg-grid,
+  .bg-glow,
+  .hero__bg-orb,
+  .hero__actions,
+  .projects__filters,
+  .project-card__links,
+  .contact__form,
+  .modal,
+  .back-to-top,
+  .status-pulse,
+  .heart-pulse,
+  .about__floating-card {
+    display: none !important;
+  }
+
+  /* 3. Paksa Tampil Semua Elemen Scroll Reveal */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    transition: none !important;
+  }
+
+  .skill-card__bar-fill {
+    transition: none !important;
+    background: #097d8e !important;
+  }
+
+  /* 4. Penataan Tata Letak Kontainer */
+  .container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .section {
+    padding: 20px 0 !important;
+    page-break-inside: avoid;
+  }
+
+  .section-header {
+    margin-bottom: 20px !important;
+    text-align: left !important;
+    page-break-after: avoid;
+  }
+
+  .section-title {
+    font-size: 18pt !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #097d8e !important;
+    padding-bottom: 5px !important;
+    margin-top: 10px !important;
+  }
+
+  .section-subtitle,
+  .section-label {
+    font-size: 10pt !important;
+    color: #555555 !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* 5. Hero Section (Header Resume) */
+  .hero {
+    padding-top: 10px !important;
+    padding-bottom: 20px !important;
+    border-bottom: 2px solid #111111 !important;
+    margin-bottom: 20px !important;
+  }
+
+  .hero .container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: left !important;
+  }
+
+  .hero__content {
+    max-width: 75% !important;
+    padding: 0 !important;
+  }
+
+  .hero__greeting {
+    font-size: 11pt !important;
+    margin-bottom: 2px !important;
+  }
+
+  .hero__name {
+    font-size: 24pt !important;
+    line-height: 1.2 !important;
+    margin-bottom: 5px !important;
+    color: #000000 !important;
+  }
+
+  .hero__title-wrapper {
+    font-size: 14pt !important;
+    font-weight: 600 !important;
+    color: #097d8e !important;
+    margin-bottom: 8px !important;
+  }
+
+  .hero__description {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    color: #333333 !important;
+  }
+
+  .hero__image-wrapper {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    border: 3px solid #097d8e !important;
+    box-shadow: none !important;
+  }
+
+  .hero__image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .hero__image-glow {
+    display: none !important;
+  }
+
+  .hero__badge {
+    display: none !important;
+  }
+
+  /* 6. About Section */
+  .about__grid {
+    display: block !important;
+  }
+
+  .about__image-container {
+    display: none !important;
+  }
+
+  .about__text {
+    padding: 0 !important;
+  }
+
+  .about__text h3 {
+    font-size: 13pt !important;
+    margin-bottom: 10px !important;
+  }
+
+  .about__highlights {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    margin-top: 15px !important;
+  }
+
+  .about__highlight-item {
+    font-size: 9pt !important;
+    color: #111111 !important;
+  }
+
+  /* 7. Skills Section */
+  .skills__grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .skill-card {
+    background: transparent !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 4px !important;
+    padding: 10px !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    page-break-inside: avoid;
+  }
+
+  .skill-card__icon {
+    display: none !important;
+  }
+
+  .skill-card__name {
+    font-size: 10pt !important;
+    font-weight: 600 !important;
+    color: #000000 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .skill-card__description {
+    font-size: 8.5pt !important;
+    line-height: 1.3 !important;
+    color: #444444 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .skill-card__bar {
+    height: 6px !important;
+    background: #eeeeee !important;
+    border: 1px solid #cccccc !important;
+  }
+
+  .skill-card__level {
+    font-size: 8pt !important;
+    text-align: right !important;
+    margin-top: 2px !important;
+    font-weight: bold !important;
+  }
+
+  /* 8. Experience & Education Section */
+  .experience__layout {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 30px !important;
+  }
+
+  .experience__column-title {
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    border-bottom: 1px solid #cccccc !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .experience__column-title .icon {
+    display: none !important;
+  }
+
+  .timeline {
+    padding-left: 10px !important;
+    border-left: 2px solid #097d8e !important;
+  }
+
+  .timeline__item {
+    margin-bottom: 15px !important;
+    position: relative !important;
+    page-break-inside: avoid;
+  }
+
+  .timeline__dot {
+    display: none !important;
+  }
+
+  .timeline__date {
+    font-size: 9pt !important;
+    font-weight: bold !important;
+    color: #097d8e !important;
+    margin-bottom: 2px !important;
+  }
+
+  .timeline__title {
+    font-size: 10.5pt !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+  }
+
+  .timeline__company {
+    font-size: 9pt !important;
+    font-style: italic !important;
+    color: #444444 !important;
+    margin-bottom: 4px !important;
+  }
+
+  .timeline__description {
+    font-size: 9pt !important;
+    line-height: 1.3 !important;
+    color: #333333 !important;
+  }
+
+  /* Sertifikat Terverifikasi */
+  .cert-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+  }
+
+  .cert-card {
+    background: transparent !important;
+    border: 1px solid #dddddd !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    page-break-inside: avoid;
+  }
+
+  .cert-card__badge {
+    display: none !important;
+  }
+
+  .cert-card__info {
+    text-align: left !important;
+  }
+
+  .cert-card__name {
+    font-size: 9.5pt !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+  }
+
+  .cert-card__issuer {
+    font-size: 8.5pt !important;
+    color: #555555 !important;
+  }
+
+  .cert-card__date {
+    font-size: 8.5pt !important;
+    font-weight: bold !important;
+    color: #097d8e !important;
+    text-align: right !important;
+  }
+
+  /* 9. Projects Section */
+  .projects__grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  .project-card {
+    background: transparent !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    display: block !important;
+    page-break-inside: avoid;
+  }
+
+  .project-card__image-wrapper {
+    display: none !important;
+  }
+
+  .project-card__body {
+    padding: 15px !important;
+  }
+
+  .project-card__title {
+    font-size: 12pt !important;
+    font-weight: bold !important;
+    color: #000000 !important;
+    border-bottom: 1px dashed #dddddd !important;
+    padding-bottom: 4px !important;
+    margin-bottom: 10px !important;
+  }
+
+  .project-card__section-label {
+    font-size: 8.5pt !important;
+    text-transform: uppercase !important;
+    font-weight: bold !important;
+    color: #097d8e !important;
+    margin-top: 6px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .project-card__text {
+    font-size: 9pt !important;
+    line-height: 1.3 !important;
+    color: #333333 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .project-card__tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+    margin-top: 8px !important;
+  }
+
+  .project-card__tag {
+    font-size: 7.5pt !important;
+    background: #eeeeee !important;
+    color: #333333 !important;
+    border: 1px solid #cccccc !important;
+    padding: 2px 6px !important;
+    border-radius: 3px !important;
+  }
+
+  /* 10. Blog Section */
+  .blog__grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+    max-width: 100% !important;
+  }
+
+  .blog-card {
+    background: transparent !important;
+    border: 1px solid #dddddd !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    display: block !important;
+    page-break-inside: avoid;
+  }
+
+  .blog-card__image-wrapper {
+    display: none !important;
+  }
+
+  .blog-card__body {
+    padding: 15px !important;
+  }
+
+  .blog-card__meta {
+    font-size: 8.5pt !important;
+    margin-bottom: 4px !important;
+  }
+
+  .blog-card__category {
+    font-weight: bold !important;
+    color: #097d8e !important;
+  }
+
+  .blog-card__title {
+    font-size: 11pt !important;
+    color: #000000 !important;
+    margin-bottom: 6px !important;
+    -webkit-line-clamp: none !important;
+    line-clamp: none !important;
+  }
+
+  .blog-card__excerpt {
+    font-size: 9pt !important;
+    line-height: 1.3 !important;
+    color: #333333 !important;
+    margin-bottom: 0 !important;
+    -webkit-line-clamp: none !important;
+    line-clamp: none !important;
+  }
+
+  .blog-card__link {
+    display: none !important;
+  }
+
+  /* 11. Contact Section */
+  .contact__grid {
+    display: block !important;
+  }
+
+  .contact__info {
+    padding: 0 !important;
+  }
+
+  .contact__info h3 {
+    font-size: 12pt !important;
+    margin-bottom: 10px !important;
+  }
+
+  .contact__channels {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .contact__channel {
+    background: transparent !important;
+    border: 1px solid #dddddd !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+  }
+
+  .contact__channel-icon {
+    display: none !important;
+  }
+
+  .contact__channel-label {
+    font-size: 7.5pt !important;
+    color: #555555 !important;
+  }
+
+  .contact__channel-value {
+    font-size: 9.5pt !important;
+    color: #000000 !important;
+  }
+
+  /* 12. Footer */
+  .footer {
+    border-top: 1px solid #cccccc !important;
+    padding: 15px 0 !important;
+    margin-top: 30px !important;
+    background: transparent !important;
+  }
+
+  .footer__info {
+    font-size: 8.5pt !important;
+    color: #555555 !important;
+    text-align: center !important;
+  }
+
+  .footer__location {
+    margin-top: 4px !important;
+  }
+
+  .footer__socials {
+    display: none !important;
+  }
+
+  /* 13. Aturan Halaman */
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm 1.2cm;
+  }
+}
