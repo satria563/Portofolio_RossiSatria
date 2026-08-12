@@ -14,6 +14,8 @@
   --bg-elevated: #1a1a2e;
   --bg-card: rgba(18, 18, 26, 0.7);
   --bg-glass: rgba(18, 18, 26, 0.4);
+  --bg-nav: rgba(10, 10, 15, 0.85);
+  --bg-nav-mobile: rgba(10, 10, 15, 0.97);
 
   --text-primary: #e2e8f0;
   --text-secondary: #94a3b8;
@@ -72,6 +74,8 @@
   --bg-elevated: #ffffff;
   --bg-card: rgba(255, 255, 255, 0.7);
   --bg-glass: rgba(255, 255, 255, 0.4);
+  --bg-nav: rgba(255, 255, 255, 0.85);
+  --bg-nav-mobile: rgba(248, 250, 252, 0.97);
 
   --text-primary: #334155;
   --text-secondary: #475569;
@@ -358,7 +362,7 @@ select:focus-visible {
 
 .navbar.scrolled {
   padding: 12px 0;
-  background: rgba(10, 10, 15, 0.85);
+  background: var(--bg-nav);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-subtle);
@@ -2161,7 +2165,7 @@ select:focus-visible {
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(10, 10, 15, 0.97);
+    background: var(--bg-nav-mobile);
     backdrop-filter: blur(20px);
     z-index: 999;
     opacity: 0;
