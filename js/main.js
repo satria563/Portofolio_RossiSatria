@@ -28,6 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/* ---------- HELPER FUNCTIONS ---------- */
+function throttle(fn, wait) {
+  let time = Date.now();
+  return function() {
+    if ((time + wait - Date.now()) < 0) {
+      fn();
+      time = Date.now();
+    }
+  }
+}
+
 /* ---------- NAVBAR ---------- */
 function initNavbar() {
   const navbar = document.querySelector('.navbar');
@@ -35,14 +46,14 @@ function initNavbar() {
   const mobileOverlay = document.querySelector('.navbar__mobile-overlay');
   const mobileLinks = document.querySelectorAll('.navbar__mobile-link');
 
-  // Scroll effect
-  window.addEventListener('scroll', () => {
+  // Scroll effect (Throttled for performance)
+  window.addEventListener('scroll', throttle(() => {
     if (window.scrollY > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
-  });
+  }, 100), { passive: true });
 
   // Hamburger toggle
   if (hamburger && mobileOverlay) {
@@ -263,52 +274,35 @@ function initActiveNavHighlight() {
   const navLinks = document.querySelectorAll('.navbar__link');
   const mobileLinks = document.querySelectorAll('.navbar__mobile-link');
 
-  function updateActiveLink() {
-    // If scrolled to the bottom of page, force highlight the Contact section
-    const isAtBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 50);
-    if (isAtBottom) {
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#contact') {
-          link.classList.add('active');
-        }
-      });
-      mobileLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#contact') {
-          link.classList.add('active');
-        }
-      });
-      return;
-    }
-
-    const scrollY = window.scrollY + 100;
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const sectionId = section.getAttribute('id');
-
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
-
-        mobileLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${sectionId}`) {
-            link.classList.add('active');
-          }
-        });
+  const updateLinks = (id) => {
+    [...navLinks, ...mobileLinks].forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${id}`) {
+        link.classList.add('active');
       }
     });
-  }
+  };
 
-  window.addEventListener('scroll', updateActiveLink);
-  updateActiveLink(); // Initial call
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateLinks(entry.target.getAttribute('id'));
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -79% 0px' // Highlight when top 20% of element hits viewport, prevents bottom elements sticking
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+    
+    // Fallback for reaching very bottom (Contact section)
+    window.addEventListener('scroll', () => {
+      if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 10)) {
+        updateLinks('contact');
+      }
+    }, { passive: true });
+  }
 }
 
 /* ---------- CONTACT FORM ---------- */
@@ -747,13 +741,13 @@ function initBackToTop() {
   const backToTopBtn = document.getElementById('back-to-top');
   if (!backToTopBtn) return;
 
-  window.addEventListener('scroll', () => {
+  window.addEventListener('scroll', throttle(() => {
     if (window.scrollY > 400) {
       backToTopBtn.classList.add('show');
     } else {
       backToTopBtn.classList.remove('show');
     }
-  });
+  }, 100), { passive: true });
 
   backToTopBtn.addEventListener('click', () => {
     window.scrollTo({
