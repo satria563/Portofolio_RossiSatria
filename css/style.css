@@ -64,6 +64,34 @@
   --transition-spring: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ---------- Light Theme Colors ---------- */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --bg-glass: rgba(255, 255, 255, 0.4);
+
+  --text-primary: #334155;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-heading: #0f172a;
+
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-card: rgba(15, 23, 42, 0.1);
+
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-glow-cyan: 0 0 30px rgba(6, 182, 212, 0.2);
+  --shadow-glow-violet: 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+[data-theme="light"] .bg-glow,
+[data-theme="light"] .hero__bg-orb {
+  opacity: 0.15 !important;
+  filter: blur(120px) !important;
+}
+
 /* ---------- Skip to Content (Accessibility) ---------- */
 .skip-to-content {
   position: absolute;
@@ -361,6 +389,27 @@ select:focus-visible {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--border-subtle);
+  color: var(--text-heading);
+  border: 1px solid var(--border-card);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-right: 8px;
+}
+
+.theme-toggle:hover {
+  background: var(--bg-card);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow-cyan);
 }
 
 .navbar__link {
@@ -2132,6 +2181,14 @@ select:focus-visible {
     justify-content: center;
     height: 100%;
     gap: 12px;
+  }
+
+  .theme-toggle--mobile {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    margin-top: 8px;
+    margin-right: 0;
   }
 
   .navbar__mobile-link {

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) {
     lucide.createIcons();
   }
+  initThemeToggle();
   initNavbar();
   initTypingEffect();
   initScrollReveal();
@@ -97,6 +98,45 @@ function initNavbar() {
       }
     });
   });
+}
+
+/* ---------- THEME TOGGLE ---------- */
+function initThemeToggle() {
+  const toggleDesktop = document.getElementById('theme-toggle-desktop');
+  const toggleMobile = document.getElementById('theme-toggle-mobile');
+  const savedTheme = localStorage.getItem('theme');
+  let isLightMode = savedTheme === 'light';
+
+  // Function to update DOM and Icons
+  const updateTheme = () => {
+    if (isLightMode) {
+      document.documentElement.setAttribute('data-theme', 'light');
+      if (toggleDesktop) toggleDesktop.innerHTML = '<i data-lucide="sun"></i>';
+      if (toggleMobile) toggleMobile.innerHTML = '<i data-lucide="sun"></i>';
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      if (toggleDesktop) toggleDesktop.innerHTML = '<i data-lucide="moon"></i>';
+      if (toggleMobile) toggleMobile.innerHTML = '<i data-lucide="moon"></i>';
+    }
+    
+    // Re-initialize lucide icons for the newly injected icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  };
+
+  // Set initial state without toggling
+  updateTheme();
+
+  // Toggle handler
+  const handleToggle = () => {
+    isLightMode = !isLightMode;
+    localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    updateTheme();
+  };
+
+  if (toggleDesktop) toggleDesktop.addEventListener('click', handleToggle);
+  if (toggleMobile) toggleMobile.addEventListener('click', handleToggle);
 }
 
 /* ---------- TYPING EFFECT ---------- */
