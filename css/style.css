@@ -1233,8 +1233,10 @@ select:focus-visible {
    ============================================ */
 .blog__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 30px;
+  max-width: 840px;
+  margin: 0 auto;
 }
 
 .blog-card {
