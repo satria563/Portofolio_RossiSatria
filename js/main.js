@@ -816,59 +816,80 @@ const certificateDetails = {
 /* ---------- BLOG ARTICLES DATA ---------- */
 const blogArticles = {
   "ldr-sensor": {
-    title: "Membangun Saklar Otomatis Berbasis Sensor Cahaya (LDR) Menggunakan Arduino IDE",
+    title: "IoT Hidroponik: Otomatisasi Atap Akrilik Buka Tutup Berbasis Sensor Cahaya LDR & ESP8266",
     category: "Teknologi & IoT",
     date: "12 Agu 2026",
     content: `
-      <p>Dalam proyek Internet of Things (IoT) dasar, salah satu studi kasus yang paling populer dan aplikatif adalah pembuatan saklar otomatis untuk lampu jalan atau lampu rumah menggunakan sensor cahaya LDR (Light Dependent Resistor). Pada artikel ini, kita akan membahas cara merancang logika programnya secara stabil menggunakan perangkat Arduino IDE.</p>
+      <p>Kunci keberhasilan sistem hidroponik modern sangat bergantung pada kontrol lingkungan yang presisi, di mana intensitas cahaya menjadi salah satu faktor krusial yang memengaruhi laju fotosintesis. Di sini kita akan membahas rancangan proyek "IoT Hidroponik Menggunakan Sensor Cahaya dan Atap Akrilik Buka Tutup" untuk mengontrol pencahayaan secara otomatis dan adaptif.</p>
       
-      <h3>1. Logika Pembacaan Sensor Fisik</h3>
-      <p>LDR adalah sensor analog yang nilai resistansinya berubah seiring perubahan intensitas cahaya yang diterimanya. Saat kondisi gelap, resistansi LDR meningkat tinggi, dan sebaliknya saat terang. Kita menghubungkannya ke pin analog Arduino (A0) menggunakan konfigurasi pembagi tegangan (voltage divider) dengan resistor 10k Ohm.</p>
-      
-      <h3>2. Masalah Chattering (Kedipan Lampu)</h3>
-      <p>Salah satu kendala utama jika kita menggunakan logika if-else sederhana seperti <code>if (sensorValue < threshold) { turnOnLampu(); }</code> adalah terjadinya kedipan cepat pada relay lampu (chattering). Hal ini terjadi saat transisi sore hari (cahaya remang-remang), di mana nilai pembacaan sensor berfluktuasi tepat di sekitar angka ambang batas (threshold).</p>
+      <h3>1. Arsitektur Perangkat Keras</h3>
+      <p>Sistem ini mengombinasikan sensor fisik, pengontrol nirkabel, dan aktuator fisik:</p>
+      <ul>
+        <li><strong>Sensor Cahaya LDR:</strong> Mendeteksi tingkat intensitas cahaya lingkungan.</li>
+        <li><strong>Mikrokontroler ESP8266 (NodeMCU):</strong> Memproses data sensor dan menghubungkan sistem ke platform IoT (Firebase/Telegram/Websocket).</li>
+        <li><strong>Motor Servo SG90:</strong> Menggerakkan engsel atap akrilik pelindung untuk membuka/menutup berdasarkan masukan intensitas cahaya.</li>
+      </ul>
+
+      <h3>2. Kendala ADC ESP8266 & Penyebabnya</h3>
+      <p>Saat merakit sirkuit, kendala utama adalah pembacaan LDR analog yang berfluktuasi liar atau mengalami <em>clipping</em> (nilai mentok di batas atas). Hal ini disebabkan oleh keterbatasan pin ADC A0 pada ESP8266 NodeMCU yang hanya mampu menerima tegangan maksimal <strong>1.0 Volt</strong>.</p>
 
       <blockquote>
-        <strong>Hysteresis:</strong> Solusi terbaik untuk mengatasi chattering adalah menerapkan algoritma hysteresis, yaitu menetapkan batas ambang yang berbeda untuk menyalakan dan mematikan lampu.
+        <strong>Penyebab Clipping:</strong> Menggunakan pin sumber tegangan 5V dan resistor pembagi yang salah akan menyebabkan tegangan keluaran analog melebihi 1V, sehingga sirkuit analog-to-digital (ADC) mengalami saturasi.
       </blockquote>
 
-      <h3>3. Kode Program Arduino IDE</h3>
-      <p>Berikut adalah cuplikan kode lengkap dengan implementasi rentang hysteresis dan debouncing digital berbasis software:</p>
+      <h3>3. Solusi Optimalisasi & Kode Arduino IDE</h3>
+      <p>Masalah tersebut diselesaikan melalui langkah optimasi sirkuit dan program:</p>
+      <ol>
+        <li><strong>Rangkaian Pembagi Tegangan:</strong> Menghubungkan LDR ke pin <strong>3.3V (3V3)</strong> NodeMCU (bukan 5V) dan menggunakan resistor seri bernilai <strong>4.7kΩ hingga 10kΩ</strong> agar tegangan analog ke pin A0 selalu berada di bawah 1.0V.</li>
+        <li><strong>Algoritma Averaging (Penyaringan Sinyal):</strong> Di dalam kode program, pembacaan analog diulang sebanyak 15 kali secara berurutan dalam jeda milidetik, lalu dihitung nilai rata-ratanya untuk meredam gangguan noise listrik.</li>
+      </ol>
 
-      <pre><code><span class="code-keyword">const int</span> ldrPin = A0;     <span class="code-comment">// Pin pembacaan sensor</span>
-<span class="code-keyword">const int</span> relayPin = 7;   <span class="code-comment">// Pin kontrol Relay lampu</span>
+      <p>Berikut adalah cuplikan kode implementasi penyaringan sensor dan pergerakan servo di Arduino IDE:</p>
 
-<span class="code-comment">// Rentang Hysteresis</span>
-<span class="code-keyword">const int</span> DARK_THRESHOLD = 300;  <span class="code-comment">// Nyalakan lampu jika nilai &lt; 300</span>
-<span class="code-keyword">const int</span> LIGHT_THRESHOLD = 500; <span class="code-comment">// Matikan lampu jika nilai &gt; 500</span>
+      <pre><code>#include &lt;Servo.h&gt;
 
-<span class="code-keyword">bool</span> isLampuOn = <span class="code-keyword">false</span>;
+const int ldrPin = A0;
+Servo atapServo;
 
-<span class="code-keyword">void</span> <span class="code-function">setup</span>() {
-  pinMode(relayPin, OUTPUT);
-  Serial.begin(9600);
+// Rentang pembacaan aman
+const int THRESHOLD_TERANG = 600; 
+const int SERVO_BUKA = 90;
+const int SERVO_TUTUP = 0;
+
+void setup() {
+  atapServo.attach(2); // Servo terhubung ke pin D4 (GPIO2)
+  pinMode(ldrPin, INPUT);
+  Serial.begin(115200);
 }
 
-<span class="code-keyword">void</span> <span class="code-function">loop</span>() {
-  <span class="code-keyword">int</span> rawValue = analogRead(ldrPin);
-  
-  <span class="code-comment">// Logika Hysteresis</span>
-  <span class="code-keyword">if</span> (!isLampuOn && rawValue &lt; DARK_THRESHOLD) {
-    digitalWrite(relayPin, HIGH); <span class="code-comment">// Nyalakan relay</span>
-    isLampuOn = <span class="code-keyword">true</span>;
-    Serial.println(<span class="code-string">"Lampu dinyalakan (Sore/Malam)"</span>);
-  } 
-  <span class="code-keyword">else if</span> (isLampuOn && rawValue &gt; LIGHT_THRESHOLD) {
-    digitalWrite(relayPin, LOW);  <span class="code-comment">// Matikan relay</span>
-    isLampuOn = <span class="code-keyword">false</span>;
-    Serial.println(<span class="code-string">"Lampu dimatikan (Pagi/Siang)"</span>);
+void loop() {
+  // Algoritma Averaging Filter (15 kali pembacaan)
+  long sum = 0;
+  for(int i = 0; i &lt; 15; i++) {
+    sum += analogRead(ldrPin);
+    delay(10);
   }
-  
-  delay(1000); <span class="code-comment">// Pembacaan stabil setiap 1 detik</span>
+  int avgLdrValue = sum / 15;
+
+  Serial.print("Intensitas Cahaya Rata-rata: ");
+  Serial.println(avgLdrValue);
+
+  // Logika kontrol atap akrilik
+  if (avgLdrValue &gt; THRESHOLD_TERANG) {
+    // Jika terlalu panas/terang, tutup atap akrilik untuk mencegah daun terbakar
+    atapServo.write(SERVO_TUTUP);
+    Serial.println("Atap DITUTUP (Melindungi Tanaman)");
+  } else {
+    // Jika mendung/teduh, buka atap agar tanaman mendapat cahaya optimal
+    atapServo.write(SERVO_BUKA);
+    Serial.println("Atap DIBUKA (Pencahayaan Maksimal)");
+  }
+
+  delay(2000); // Evaluasi kondisi setiap 2 detik
 }</code></pre>
 
-      <h3>4. Hasil Uji Coba</h3>
-      <p>Dengan logika hysteresis di atas, relay tidak akan mengalami getar/chatting meskipun kondisi cahaya berada di remang-remang sore hari, karena sistem baru akan mematikan lampu jika cahaya benar-benar telah terang penuh melewati nilai 500 analog.</p>
+      <h3>4. Integrasi Monitoring IoT</h3>
+      <p>Data rata-rata sensor cahaya dan status posisi servo ditransmisikan ke Firebase Database melalui koneksi Wi-Fi onboard ESP8266. Dari sana, status ditampilkan secara real-time pada dashboard web (React/Tailwind) dan notifikasi kondisi darurat dikirim langsung ke chat group Telegram pengguna via Telegram Bot API.</p>
     `
   },
   "subnetting-ccna": {
