@@ -352,7 +352,7 @@ function initCardGlow() {
   // Disable mousemove event on mobile/touch screens to optimize battery/CPU
   if (window.matchMedia("(pointer: coarse)").matches) return;
 
-  const cards = document.querySelectorAll('.project-card, .skill-card');
+  const cards = document.querySelectorAll('.project-card, .skill-card, .blog-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
