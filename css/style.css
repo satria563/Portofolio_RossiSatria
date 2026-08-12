@@ -690,6 +690,7 @@ select:focus-visible {
   border-radius: var(--radius-lg);
   aspect-ratio: 4/5;
   object-fit: cover;
+  transform: scaleX(-1);
 }
 
 .about__floating-card {
@@ -705,12 +706,12 @@ select:focus-visible {
 
 .about__floating-card--exp {
   bottom: -20px;
-  left: -20px;
+  right: -20px;
 }
 
 .about__floating-card--edu {
   top: -20px;
-  right: -20px;
+  left: -20px;
 }
 
 .about__floating-card .card-label {
@@ -1805,14 +1806,14 @@ select:focus-visible {
 
   .about__floating-card--exp {
     bottom: -10px;
-    left: -10px;
-    right: auto;
+    right: -10px;
+    left: auto;
   }
 
   .about__floating-card--edu {
     top: -10px;
-    right: -10px;
-    left: auto;
+    left: -10px;
+    right: auto;
   }
 
   .skills__grid {
