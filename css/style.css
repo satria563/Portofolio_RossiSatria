@@ -538,6 +538,7 @@ select:focus-visible {
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding-top: 80px; /* Prevent fixed navbar from overlapping content */
 }
 
 .hero__bg-orb {
