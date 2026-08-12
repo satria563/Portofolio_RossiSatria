@@ -295,6 +295,13 @@ function initContactForm() {
       return;
     }
 
+    // Spam Honeypot Check
+    const honeypot = form.querySelector('#contact-hp');
+    if (honeypot && honeypot.value.trim() !== '') {
+      console.warn('Spam submission detected and blocked.');
+      return;
+    }
+
     const submitBtn = form.querySelector('.form-submit');
     const originalText = submitBtn.innerHTML;
 
