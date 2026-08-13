@@ -43,7 +43,7 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Spacing */
-  --section-padding: 100px 0;
+  --section-padding: clamp(60px, 8vw, 100px) 0;
   --container-width: 1200px;
   --container-padding: 0 24px;
 
@@ -3346,5 +3346,16 @@ select:focus-visible {
   @page {
     size: A4 portrait;
     margin: 1.5cm 1.2cm;
+  }
+}
+
+/* ============================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   ============================================ */
+@media (max-width: 768px) {
+  /* Kurangi beban GPU dari blur pada layar sentuh/mobile */
+  .bg-glow,
+  .hero__bg-orb {
+    filter: blur(50px) !important;
   }
 }
